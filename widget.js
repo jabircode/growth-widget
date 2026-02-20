@@ -2118,7 +2118,7 @@ const Ds = () => {
             document.body.classList.remove("sf:prevent-scroll")
         }), [a]), l.jsxs("div", {
             id: "sleekflow-widget-app",
-            className: O("sf:fixed sf:z-9000 sf:bottom-0 sf:right-0", "sf:sm:bottom-24 sf:sm:right-8"),
+            className: O("sf:fixed sf:z-9000 sf:bottom-24 sf:right-0", "sf:sm:bottom-24 sf:sm:right-8"),
             style: o,
             children: [a && t && !s && l.jsx(es, {
                 widgetConfig: t
