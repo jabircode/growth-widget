@@ -928,7 +928,22 @@ function te(e, t) {
 }
 
 function ne(e, t) {
-    return e === "wechat" ? t?.qrCodeURL : ""
+    if (e === "wechat") return t?.qrCodeURL || "";
+    if (e === "whatsapp") {
+        const phoneNumber = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
+        if (phoneNumber) {
+            const whatsappUrl = `https://wa.me/${String(phoneNumber).replace(/[^0-9]/g, "")}`;
+            // Generate QR code using API (synchronous URL)
+            return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(whatsappUrl)}&color=25D366&bgcolor=FFFFFF`;
+        }
+    }
+    if (e === "telegram") {
+        const telegramUrl = String(t?.telegramDeeplink || "");
+        if (telegramUrl) {
+            return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(telegramUrl)}&color=0088CC&bgcolor=FFFFFF`;
+        }
+    }
+    return "";
 }
 
 function ns(e, t, s) {
