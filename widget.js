@@ -884,26 +884,35 @@ function ts(e, t, s) {
                     }
             }
         })();
+    const config = typeof window !== "undefined" && window.SleekFlowWidgetSpacingConfig?.channels;
+    const configDisplayName = config?.[e]?.displayName;
     return {
         name: a.name,
         type: e,
-        displayName: String(t?.channelDisplayName || t?.name || a.name)
+        displayName: String(configDisplayName || t?.channelDisplayName || t?.name || a.name)
     }
 }
 
 function te(e, t) {
-    if (!t) return "";
+    const config = typeof window !== "undefined" && window.SleekFlowWidgetSpacingConfig?.channels;
+    if (!t && !config) return "";
     switch (e) {
         case "whatsapp": {
-            const s = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
+            const configPhone = config?.whatsapp?.phoneNumber;
+            const apiPhone = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
+            const s = configPhone || apiPhone;
             return s ? `https://wa.me/${String(s).replace(/[^0-9]/g,"")}` : ""
         }
         case "facebook": {
-            const s = t?.pageId;
+            const configPageId = config?.facebook?.pageId;
+            const apiPageId = t?.pageId;
+            const s = configPageId || apiPageId;
             return s ? `https://m.me/${s}` : ""
         }
         case "instagram": {
-            const s = t?.name;
+            const configUsername = config?.instagram?.username;
+            const apiUsername = t?.name;
+            const s = configUsername || apiUsername;
             return s ? `https://ig.me/m/${s}` : ""
         }
         case "line": {
@@ -911,8 +920,11 @@ function te(e, t) {
             return s ? `https://line.me/R/ti/p/${s}` : ""
         }
         case "telegram": {
-            const s = t?.telegramDeeplink;
-            return String(s)
+            const configDeeplink = config?.telegram?.deeplink;
+            const configUsername = config?.telegram?.username;
+            const apiDeeplink = t?.telegramDeeplink;
+            const s = configDeeplink || (configUsername ? `https://t.me/${configUsername}` : null) || apiDeeplink;
+            return String(s || "")
         }
         case "viber": {
             const s = t?.viberDeeplink;
@@ -928,19 +940,24 @@ function te(e, t) {
 }
 
 function ne(e, t) {
+    const config = typeof window !== "undefined" && window.SleekFlowWidgetSpacingConfig?.channels;
     if (e === "wechat") return t?.qrCodeURL || "";
     if (e === "whatsapp") {
-        const phoneNumber = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
+        const configPhone = config?.whatsapp?.phoneNumber;
+        const apiPhone = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
+        const phoneNumber = configPhone || apiPhone;
         if (phoneNumber) {
             const whatsappUrl = `https://wa.me/${String(phoneNumber).replace(/[^0-9]/g, "")}`;
-            // Generate QR code using API (synchronous URL)
             return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(whatsappUrl)}&color=25D366&bgcolor=FFFFFF`;
         }
     }
     if (e === "telegram") {
-        const telegramUrl = String(t?.telegramDeeplink || "");
+        const configDeeplink = config?.telegram?.deeplink;
+        const configUsername = config?.telegram?.username;
+        const apiDeeplink = t?.telegramDeeplink;
+        const telegramUrl = configDeeplink || (configUsername ? `https://t.me/${configUsername}` : null) || apiDeeplink;
         if (telegramUrl) {
-            return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(telegramUrl)}&color=0088CC&bgcolor=FFFFFF`;
+            return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(String(telegramUrl))}&color=0088CC&bgcolor=FFFFFF`;
         }
     }
     return "";

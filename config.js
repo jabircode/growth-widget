@@ -59,6 +59,33 @@ window.SleekFlowWidgetSpacingConfig = {
   chatbox: {
     marginVertical: '32px',  // Vertical margin for chatbox height calculation
     marginOffset: '56px',    // Additional offset for chatbox height
+  },
+
+  /**
+   * Channel Configuration
+   * Configure messaging channels (WhatsApp, Telegram, etc.)
+   * These override backend settings if provided
+   */
+  channels: {
+    whatsapp: {
+      phoneNumber: '+1234567890',  // WhatsApp phone number (include country code)
+      displayName: 'WhatsApp',     // Display name in widget
+    },
+    telegram: {
+      username: 'yourusername',    // Telegram username
+      deeplink: null,              // Or provide full deep link: 'https://t.me/yourusername'
+      displayName: 'Telegram',
+    },
+    facebook: {
+      pageId: null,                // Facebook Page ID
+      displayName: 'Facebook Messenger',
+    },
+    instagram: {
+      username: null,              // Instagram username
+      displayName: 'Instagram',
+    },
+    // Set to null to disable a channel
+    // whatsapp: null,
   }
 };
 
