@@ -50,9 +50,9 @@ Add these scripts to your HTML:
   };
 </script>
 
-<!-- Widget Script (replace with your Cloud Function URL) -->
+<!-- Widget Script -->
 <script
-  src="https://YOUR-FUNCTION-URL/widget.js"
+  src="https://jabircode.github.io/growth-widget/widget.js"
   data-companyid="your-company-id"
   data-location="eastasia"
   data-widgetid="your-widget-id"
@@ -351,94 +351,69 @@ getComputedStyle(container).bottom;  // Should match config
 getComputedStyle(container).right;   // Should match config
 ```
 
-## 🚀 Deployment to Google Cloud Functions
+## 🚀 Deployment via GitHub Pages
 
-This widget can be deployed to Google Cloud Functions for global CDN distribution with cost controls.
+This widget is hosted on GitHub Pages for free, automatic CDN distribution.
 
-### Prerequisites
+### Hosted URL
 
-- Google Cloud Platform account
-- `gcloud` CLI installed and authenticated
-- GCP project created
+```
+https://jabircode.github.io/growth-widget/
+```
 
-### Deployment Steps
+### Files Available
 
-1. **Navigate to project root:**
+- `widget.js` - Main widget bundle
+- `widget.css` - Styles
+- `config.js` - Configuration template (reference only)
+- `landing-page.js` - Landing page component
+- `chat-window.js` - Chat interface
+- `channel-detail.js` - Channel details
+
+### Deployment Process
+
+1. **Make changes to widget code**
+2. **Commit and push to GitHub:**
    ```bash
-   cd growth-widget
+   git add .
+   git commit -m "Update widget"
+   git push origin main
    ```
+3. **GitHub Pages automatically deploys** (1-2 minutes)
 
-2. **Deploy to Cloud Functions (max instances: 1):**
-   ```bash
-   gcloud functions deploy sleekflow-widget \
-     --gen2 \
-     --runtime=nodejs18 \
-     --region=us-central1 \
-     --source=. \
-     --entry-point=serveWidget \
-     --trigger-http \
-     --allow-unauthenticated \
-     --max-instances=1 \
-     --memory=256MB \
-     --timeout=10s
-   ```
+### Enable GitHub Pages (One-Time Setup)
 
-3. **Get your Cloud Function URL:**
-   ```bash
-   gcloud functions describe sleekflow-widget \
-     --gen2 \
-     --region=us-central1 \
-     --format="value(serviceConfig.uri)"
-   ```
+1. Go to [Repository Settings](https://github.com/jabircode/growth-widget/settings/pages)
+2. Under "Source", select: **Deploy from a branch**
+3. Branch: **main**
+4. Folder: **/ (root)**
+5. Click **Save**
 
-4. **Use the URL in your widget embed code:**
-   ```html
-   <script src="https://YOUR-FUNCTION-URL/widget.js" ...></script>
-   ```
-
-### Deployment Configuration
-
-- **Max Instances:** 1 (cost optimization)
-- **Memory:** 256MB (sufficient for static files)
-- **Timeout:** 10s
-- **CORS:** Enabled for all origins
-- **Caching:** 1 year max-age for immutable assets
-
-### Cost Estimation
-
-With `max-instances=1`, typical costs for 10K monthly requests: **$0.00** (within free tier)
-
-- Invocations: First 2M free
-- Compute time: First 400K GB-seconds free
-- Network egress: First 1GB free
+Widget will be available at:
+```
+https://jabircode.github.io/growth-widget/widget.js
+```
 
 ### Verify Deployment
 
 Test your endpoints:
 ```bash
 # Test widget.js
-curl https://YOUR-FUNCTION-URL/widget.js -I
+curl https://jabircode.github.io/growth-widget/widget.js -I
+# Should return: 200 OK
 
-# Test CORS headers
-curl https://YOUR-FUNCTION-URL/widget.js \
-  -H "Origin: https://example.com" -I
-
-# Verify max instances
-gcloud functions describe sleekflow-widget \
-  --gen2 \
-  --region=us-central1 \
-  --format="value(serviceConfig.maxInstanceCount)"
+# Test widget.css
+curl https://jabircode.github.io/growth-widget/widget.css -I
+# Should return: 200 OK
 ```
 
-### Files Served
+### Benefits
 
-The Cloud Function serves these widget files:
-- `widget.js` - Main widget bundle
-- `widget.css` - Styles
-- `config.js` - Configuration template
-- `landing-page.js` - Landing page component
-- `chat-window.js` - Chat interface
-- `channel-detail.js` - Channel details
+✅ **Free forever** - No costs
+✅ **Auto-deploy** - Push to deploy
+✅ **Global CDN** - Fast worldwide
+✅ **CORS enabled** - Works everywhere
+✅ **HTTPS included** - Secure by default
 
 ## 🤝 Contributing
 
