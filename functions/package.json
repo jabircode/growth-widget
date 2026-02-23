@@ -1,0 +1,11 @@
+{
+  "name": "sleekflow-widget-cdn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

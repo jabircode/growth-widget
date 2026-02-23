@@ -25,15 +25,34 @@ A customizable chat widget with independently configurable spacing for all compo
 
 ### 1. Include the Widget
 
-Add these scripts to your HTML (config.js must load before widget.js):
+Add these scripts to your HTML:
 
 ```html
-<!-- Optional: Spacing Configuration -->
-<script src="config.js"></script>
+<!-- Optional: Inline Spacing Configuration -->
+<script>
+  window.SleekFlowWidgetSpacingConfig = {
+    container: {
+      mobile: { bottom: '100px', right: '0px' },
+      desktop: { bottom: '100px', right: '32px' }
+    },
+    channels: {
+      whatsapp: {
+        phoneNumber: '+1234567890',
+        displayName: 'WhatsApp',
+        message: "Hi! I'm interested in your services",
+        qrCode: {
+          foregroundColor: '25D366',
+          backgroundColor: 'FFFFFF',
+          size: 256
+        }
+      }
+    }
+  };
+</script>
 
-<!-- Widget Script -->
+<!-- Widget Script (replace with your Cloud Function URL) -->
 <script
-  src="widget.js"
+  src="https://YOUR-FUNCTION-URL/widget.js"
   data-companyid="your-company-id"
   data-location="eastasia"
   data-widgetid="your-widget-id"
@@ -332,6 +351,95 @@ getComputedStyle(container).bottom;  // Should match config
 getComputedStyle(container).right;   // Should match config
 ```
 
+## 🚀 Deployment to Google Cloud Functions
+
+This widget can be deployed to Google Cloud Functions for global CDN distribution with cost controls.
+
+### Prerequisites
+
+- Google Cloud Platform account
+- `gcloud` CLI installed and authenticated
+- GCP project created
+
+### Deployment Steps
+
+1. **Navigate to project root:**
+   ```bash
+   cd growth-widget
+   ```
+
+2. **Deploy to Cloud Functions (max instances: 1):**
+   ```bash
+   gcloud functions deploy sleekflow-widget \
+     --gen2 \
+     --runtime=nodejs18 \
+     --region=us-central1 \
+     --source=. \
+     --entry-point=serveWidget \
+     --trigger-http \
+     --allow-unauthenticated \
+     --max-instances=1 \
+     --memory=256MB \
+     --timeout=10s
+   ```
+
+3. **Get your Cloud Function URL:**
+   ```bash
+   gcloud functions describe sleekflow-widget \
+     --gen2 \
+     --region=us-central1 \
+     --format="value(serviceConfig.uri)"
+   ```
+
+4. **Use the URL in your widget embed code:**
+   ```html
+   <script src="https://YOUR-FUNCTION-URL/widget.js" ...></script>
+   ```
+
+### Deployment Configuration
+
+- **Max Instances:** 1 (cost optimization)
+- **Memory:** 256MB (sufficient for static files)
+- **Timeout:** 10s
+- **CORS:** Enabled for all origins
+- **Caching:** 1 year max-age for immutable assets
+
+### Cost Estimation
+
+With `max-instances=1`, typical costs for 10K monthly requests: **$0.00** (within free tier)
+
+- Invocations: First 2M free
+- Compute time: First 400K GB-seconds free
+- Network egress: First 1GB free
+
+### Verify Deployment
+
+Test your endpoints:
+```bash
+# Test widget.js
+curl https://YOUR-FUNCTION-URL/widget.js -I
+
+# Test CORS headers
+curl https://YOUR-FUNCTION-URL/widget.js \
+  -H "Origin: https://example.com" -I
+
+# Verify max instances
+gcloud functions describe sleekflow-widget \
+  --gen2 \
+  --region=us-central1 \
+  --format="value(serviceConfig.maxInstanceCount)"
+```
+
+### Files Served
+
+The Cloud Function serves these widget files:
+- `widget.js` - Main widget bundle
+- `widget.css` - Styles
+- `config.js` - Configuration template
+- `landing-page.js` - Landing page component
+- `chat-window.js` - Chat interface
+- `channel-detail.js` - Channel details
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these guidelines:
@@ -346,11 +454,8 @@ Contributions are welcome! Please follow these guidelines:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/-widget.git
-cd -widget
-
-# Open in browser
-open index.html
+git clone https://github.com/jabircode/growth-widget.git
+cd growth-widget
 ```
 
 ## 📄 License
