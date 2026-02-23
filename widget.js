@@ -1,4 +1,4 @@
-const __vite__mapDeps = (i, m = __vite__mapDeps, d = (m.f || (m.f = ["index-k9gMXhh4.js", "react-vendor-BYNZdcZL.js", "vendor-YinDUPqL.js", "mdast-util-from-markdown-C54fcu-n.js", "useScrollbar-5ZtkeaEp.js", "react-hook-form-DMF_HXqP.js", "useCountryCode-BaFXhitB.js", "i18n-JfmkiC5i.js", "zod-DkD4_1Ae.js", "libphonenumber-Kugw9uAs.js", "sentry-BiRZxolK.js", "index-CwQei82i.js", "Markdown-CB7jbRBW.js", "index-CBiyK_f7.js"]))) => i.map(i => d[i]);
+const __vite__mapDeps = (i, m = __vite__mapDeps, d = (m.f || (m.f = ["channel-detail.js", "react-vendor-BYNZdcZL.js", "vendor-YinDUPqL.js", "mdast-util-from-markdown-C54fcu-n.js", "useScrollbar-5ZtkeaEp.js", "react-hook-form-DMF_HXqP.js", "useCountryCode-BaFXhitB.js", "i18n-JfmkiC5i.js", "zod-DkD4_1Ae.js", "libphonenumber-Kugw9uAs.js", "sentry-BiRZxolK.js", "landing-page.js", "Markdown-CB7jbRBW.js", "chat-window.js"]))) => i.map(i => d[i]);
 var we = Object.defineProperty;
 var Ce = (e, t, s) => t in e ? we(e, t, {
     enumerable: !0,
@@ -762,9 +762,9 @@ const F = D((e, t) => ({
             })
         }
     })),
-    Xe = R.lazy(() => H(() => import("./index-k9gMXhh4.js"), __vite__mapDeps([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))),
-    Je = R.lazy(() => H(() => import("./index-CwQei82i.js"), __vite__mapDeps([11, 1, 2, 3, 4, 12, 7, 10]))),
-    Ye = R.lazy(() => H(() => import("./index-CBiyK_f7.js"), __vite__mapDeps([13, 1, 2, 3, 4, 6, 7, 12, 10]))),
+    Xe = R.lazy(() => H(() => import("./channel-detail.js"), __vite__mapDeps([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))),
+    Je = R.lazy(() => H(() => import("./landing-page.js"), __vite__mapDeps([11, 1, 2, 3, 4, 12, 7, 10]))),
+    Ye = R.lazy(() => H(() => import("./chat-window.js"), __vite__mapDeps([13, 1, 2, 3, 4, 6, 7, 12, 10]))),
     es = ({
         widgetConfig: e
     }) => {
