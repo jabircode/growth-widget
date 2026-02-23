@@ -68,7 +68,7 @@ window.SleekFlowWidgetSpacingConfig = {
    */
   channels: {
     whatsapp: {
-      phoneNumber: '+12525126882',  // WhatsApp phone number (include country code)
+      phoneNumber: '+11111',  // WhatsApp phone number (include country code)
       displayName: 'WhatsApp',     // Display name in widget
       message: "Hi! I'm interested in your services",  // Pre-filled message (optional)
       qrCode: {
