@@ -1,4 +1,4 @@
-# SleekFlow Widget - Decoupled Spacing Configuration
+#  Widget - Decoupled Spacing Configuration
 
 A customizable chat widget with independently configurable spacing for all components. Perfect for integrating into any website without layout conflicts.
 
@@ -47,7 +47,7 @@ Add these scripts to your HTML (config.js must load before widget.js):
 Edit `config.js` to adjust spacing:
 
 ```javascript
-window.SleekFlowWidgetSpacingConfig = {
+window.WidgetSpacingConfig = {
   container: {
     mobile: { bottom: '8px', right: '0px' },
     desktop: { bottom: '8px', right: '32px' }
@@ -67,7 +67,7 @@ window.SleekFlowWidgetSpacingConfig = {
 The `config.js` file exports a global configuration object with the following structure:
 
 ```javascript
-window.SleekFlowWidgetSpacingConfig = {
+window.WidgetSpacingConfig = {
   // Main widget container positioning
   container: {
     mobile: {
@@ -239,7 +239,7 @@ Add to your stylesheet or `<style>` tag:
 ### Component Structure
 
 ```
-Widget Container (#sleekflow-widget-app)
+Widget Container (#-widget-app)
 ├── Chatbox Window (conditionally rendered)
 ├── Toggle Button
 └── Welcome Message Popup (conditionally rendered)
@@ -285,7 +285,7 @@ To revert to CSS-only defaults:
 
 ```javascript
 // Option 1: Set config to null
-window.SleekFlowWidgetSpacingConfig = null;
+window.WidgetSpacingConfig = null;
 
 // Option 2: Remove config.js script from HTML
 ```
@@ -296,7 +296,7 @@ window.SleekFlowWidgetSpacingConfig = null;
 // Apply different spacing based on page
 const isHomePage = window.location.pathname === '/';
 
-window.SleekFlowWidgetSpacingConfig = {
+window.WidgetSpacingConfig = {
   container: {
     desktop: {
       bottom: '8px',
@@ -310,7 +310,7 @@ window.SleekFlowWidgetSpacingConfig = {
 
 ```javascript
 // Update spacing after widget loads
-window.SleekFlowWidgetSpacingConfig.container.desktop.right = '100px';
+window.WidgetSpacingConfig.container.desktop.right = '100px';
 // Note: Requires widget refresh to take effect
 ```
 
@@ -327,7 +327,7 @@ window.SleekFlowWidgetSpacingConfig.container.desktop.right = '100px';
 
 ```javascript
 // Inspect computed styles
-const container = document.getElementById('sleekflow-widget-app');
+const container = document.getElementById('-widget-app');
 getComputedStyle(container).bottom;  // Should match config
 getComputedStyle(container).right;   // Should match config
 ```
@@ -346,8 +346,8 @@ Contributions are welcome! Please follow these guidelines:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/sleekflow-widget.git
-cd sleekflow-widget
+git clone https://github.com/yourusername/-widget.git
+cd -widget
 
 # Open in browser
 open index.html
@@ -365,7 +365,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Ensure `config.js` loads before `widget.js`
 
 ### Spacing not applying?
-- Verify `window.SleekFlowWidgetSpacingConfig` exists in console
+- Verify `window.WidgetSpacingConfig` exists in console
 - Check CSS variable values in DevTools
 - Ensure values include units (e.g., `'16px'` not `16`)
 
@@ -378,9 +378,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For issues and questions:
 - Open an issue on GitHub
-- Contact: support@sleekflow.io
-- Documentation: https://docs.sleekflow.io
+- Contact: support@.io
+- Documentation: https://docs..io
 
 ---
 
-**Made with ❤️ by the SleekFlow Team**
+**Made with ❤️ by the  Team**
