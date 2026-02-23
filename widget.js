@@ -959,7 +959,10 @@ function ne(e, t) {
             const phone = String(phoneNumber).replace(/[^0-9]/g, "");
             const message = config?.whatsapp?.message;
             const whatsappUrl = message ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : `https://wa.me/${phone}`;
-            return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(whatsappUrl)}&color=25D366&bgcolor=FFFFFF`;
+            const qrColor = config?.whatsapp?.qrCode?.foregroundColor || '25D366';
+            const qrBgColor = config?.whatsapp?.qrCode?.backgroundColor || 'FFFFFF';
+            const qrSize = config?.whatsapp?.qrCode?.size || 256;
+            return `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(whatsappUrl)}&color=${qrColor}&bgcolor=${qrBgColor}`;
         }
     }
     if (e === "telegram") {
@@ -972,7 +975,35 @@ function ne(e, t) {
             telegramUrl = `${telegramUrl}?text=${encodeURIComponent(message)}`;
         }
         if (telegramUrl) {
-            return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(String(telegramUrl))}&color=0088CC&bgcolor=FFFFFF`;
+            const qrColor = config?.telegram?.qrCode?.foregroundColor || '0088CC';
+            const qrBgColor = config?.telegram?.qrCode?.backgroundColor || 'FFFFFF';
+            const qrSize = config?.telegram?.qrCode?.size || 256;
+            return `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(String(telegramUrl))}&color=${qrColor}&bgcolor=${qrBgColor}`;
+        }
+    }
+    if (e === "facebook") {
+        const configPageId = config?.facebook?.pageId;
+        const apiPageId = t?.pageId;
+        const pageId = configPageId || apiPageId;
+        if (pageId) {
+            const message = config?.facebook?.message;
+            const fbUrl = message ? `https://m.me/${pageId}?text=${encodeURIComponent(message)}` : `https://m.me/${pageId}`;
+            const qrColor = config?.facebook?.qrCode?.foregroundColor || '0084FF';
+            const qrBgColor = config?.facebook?.qrCode?.backgroundColor || 'FFFFFF';
+            const qrSize = config?.facebook?.qrCode?.size || 256;
+            return `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(fbUrl)}&color=${qrColor}&bgcolor=${qrBgColor}`;
+        }
+    }
+    if (e === "instagram") {
+        const configUsername = config?.instagram?.username;
+        const apiUsername = t?.name;
+        const username = configUsername || apiUsername;
+        if (username) {
+            const igUrl = `https://ig.me/m/${username}`;
+            const qrColor = config?.instagram?.qrCode?.foregroundColor || 'E4405F';
+            const qrBgColor = config?.instagram?.qrCode?.backgroundColor || 'FFFFFF';
+            const qrSize = config?.instagram?.qrCode?.size || 256;
+            return `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(igUrl)}&color=${qrColor}&bgcolor=${qrBgColor}`;
         }
     }
     return "";

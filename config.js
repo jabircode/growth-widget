@@ -68,24 +68,44 @@ window.SleekFlowWidgetSpacingConfig = {
    */
   channels: {
     whatsapp: {
-      phoneNumber: '+1234567890',  // WhatsApp phone number (include country code)
+      phoneNumber: '+12525126882',  // WhatsApp phone number (include country code)
       displayName: 'WhatsApp',     // Display name in widget
       message: "Hi! I'm interested in your services",  // Pre-filled message (optional)
+      qrCode: {
+        foregroundColor: '25D366',  // QR code color (hex without #) - WhatsApp green
+        backgroundColor: 'FFFFFF',  // QR code background (hex without #) - White
+        size: 256,                  // QR code size in pixels
+      }
     },
     telegram: {
       username: 'yourusername',    // Telegram username
       deeplink: null,              // Or provide full deep link: 'https://t.me/yourusername'
       displayName: 'Telegram',
       message: null,               // Pre-filled message (optional)
+      qrCode: {
+        foregroundColor: '0088CC',  // Telegram blue
+        backgroundColor: 'FFFFFF',
+        size: 256,
+      }
     },
     facebook: {
       pageId: null,                // Facebook Page ID
       displayName: 'Facebook Messenger',
       message: null,               // Pre-filled message (optional)
+      qrCode: {
+        foregroundColor: '0084FF',  // Facebook Messenger blue
+        backgroundColor: 'FFFFFF',
+        size: 256,
+      }
     },
     instagram: {
       username: null,              // Instagram username
       displayName: 'Instagram',
+      qrCode: {
+        foregroundColor: 'E4405F',  // Instagram pink/red
+        backgroundColor: 'FFFFFF',
+        size: 256,
+      }
     },
     // Set to null to disable a channel
     // whatsapp: null,
