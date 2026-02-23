@@ -901,13 +901,18 @@ function te(e, t) {
             const configPhone = config?.whatsapp?.phoneNumber;
             const apiPhone = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
             const s = configPhone || apiPhone;
-            return s ? `https://wa.me/${String(s).replace(/[^0-9]/g,"")}` : ""
+            if (!s) return "";
+            const phone = String(s).replace(/[^0-9]/g,"");
+            const message = config?.whatsapp?.message;
+            return message ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : `https://wa.me/${phone}`;
         }
         case "facebook": {
             const configPageId = config?.facebook?.pageId;
             const apiPageId = t?.pageId;
             const s = configPageId || apiPageId;
-            return s ? `https://m.me/${s}` : ""
+            if (!s) return "";
+            const message = config?.facebook?.message;
+            return message ? `https://m.me/${s}?text=${encodeURIComponent(message)}` : `https://m.me/${s}`;
         }
         case "instagram": {
             const configUsername = config?.instagram?.username;
@@ -923,7 +928,11 @@ function te(e, t) {
             const configDeeplink = config?.telegram?.deeplink;
             const configUsername = config?.telegram?.username;
             const apiDeeplink = t?.telegramDeeplink;
-            const s = configDeeplink || (configUsername ? `https://t.me/${configUsername}` : null) || apiDeeplink;
+            let s = configDeeplink || (configUsername ? `https://t.me/${configUsername}` : null) || apiDeeplink;
+            const message = config?.telegram?.message;
+            if (s && message) {
+                s = `${s}?text=${encodeURIComponent(message)}`;
+            }
             return String(s || "")
         }
         case "viber": {
@@ -947,7 +956,9 @@ function ne(e, t) {
         const apiPhone = t?.whatsappPhoneNumber || t?.facebookDisplayPhoneNumber;
         const phoneNumber = configPhone || apiPhone;
         if (phoneNumber) {
-            const whatsappUrl = `https://wa.me/${String(phoneNumber).replace(/[^0-9]/g, "")}`;
+            const phone = String(phoneNumber).replace(/[^0-9]/g, "");
+            const message = config?.whatsapp?.message;
+            const whatsappUrl = message ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : `https://wa.me/${phone}`;
             return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(whatsappUrl)}&color=25D366&bgcolor=FFFFFF`;
         }
     }
@@ -955,7 +966,11 @@ function ne(e, t) {
         const configDeeplink = config?.telegram?.deeplink;
         const configUsername = config?.telegram?.username;
         const apiDeeplink = t?.telegramDeeplink;
-        const telegramUrl = configDeeplink || (configUsername ? `https://t.me/${configUsername}` : null) || apiDeeplink;
+        let telegramUrl = configDeeplink || (configUsername ? `https://t.me/${configUsername}` : null) || apiDeeplink;
+        const message = config?.telegram?.message;
+        if (telegramUrl && message) {
+            telegramUrl = `${telegramUrl}?text=${encodeURIComponent(message)}`;
+        }
         if (telegramUrl) {
             return `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(String(telegramUrl))}&color=0088CC&bgcolor=FFFFFF`;
         }

@@ -70,15 +70,18 @@ window.SleekFlowWidgetSpacingConfig = {
     whatsapp: {
       phoneNumber: '+1234567890',  // WhatsApp phone number (include country code)
       displayName: 'WhatsApp',     // Display name in widget
+      message: "Hi! I'm interested in your services",  // Pre-filled message (optional)
     },
     telegram: {
       username: 'yourusername',    // Telegram username
       deeplink: null,              // Or provide full deep link: 'https://t.me/yourusername'
       displayName: 'Telegram',
+      message: null,               // Pre-filled message (optional)
     },
     facebook: {
       pageId: null,                // Facebook Page ID
       displayName: 'Facebook Messenger',
+      message: null,               // Pre-filled message (optional)
     },
     instagram: {
       username: null,              // Instagram username
