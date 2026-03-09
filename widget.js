@@ -836,7 +836,7 @@ const F = D((e, t) => ({
             }
         };
         return l.jsx("div", {
-            className: O("sf:w-dvw sf:h-dvh sf:rounded-none sf:shadow-none sf:widget-chatbox-spacing", "sf:sm:w-[420px] sf:sm:h-[680px] sf:sm:rounded-2xl sf:sm:shadow-widget"),
+            className: O("sf:w-dvw sf:h-dvh sf:rounded-none sf:shadow-none sf:widget-chatbox-spacing sf:widget-chatbox-size", "sf:sm:rounded-2xl sf:sm:shadow-widget"),
             children: c()
         })
     },
@@ -1562,7 +1562,7 @@ const us = () => {
             return e || null
         }, [t, e, n]);
         return a ? l.jsx("div", {
-            className: O("sf:absolute sf:widget-welcome-spacing sf:w-[260px] sf:transform sf:transition-all sf:duration-300 sf:ease-in-out sf:opacity-100 sf:translate-y-0 sf:scale-100"),
+            className: O("sf:absolute sf:widget-welcome-spacing sf:widget-welcome-width sf:transform sf:transition-all sf:duration-300 sf:ease-in-out sf:opacity-100 sf:translate-y-0 sf:scale-100"),
             children: l.jsx("div", {
                 className: "sf:bg-white sf:rounded-lg sf:px-3 sf:py-2 sf:shadow-md sf:relative sf:border sf:border-gray-30",
                 children: l.jsx("div", {
@@ -1803,8 +1803,8 @@ const ws = () => {
         titleId: t,
         ...s
     }) => r.createElement("svg", {
-        width: 29,
-        height: 29,
+        width: "100%",
+        height: "100%",
         viewBox: "0 0 29 29",
         fill: "currentColor",
         xmlns: "http://www.w3.org/2000/svg",
@@ -1846,8 +1846,8 @@ const ws = () => {
             children: l.jsx("div", {
                 className: X("sf:inset-0 sf:transition-all sf:duration-300 sf:ease-in-out", e ? "sf:opacity-0 sf:rotate-45 sf:scale-75 sf:pointer-events-none" : "sf:opacity-100 sf:rotate-0 sf:scale-100"),
                 style: {
-                    width: n,
-                    height: a
+                    width: "var(--sf-widget-button-icon-size)",
+                    height: "var(--sf-widget-button-icon-size)"
                 },
                 children: l.jsx(Cs, {})
             })
@@ -1872,7 +1872,7 @@ const ws = () => {
             "aria-label": o ? "Close chat widget" : "Open chat widget",
             "aria-expanded": o,
             children: l.jsxs("div", {
-                className: "sf:relative sf:w-14 sf:h-14 sf:flex sf:items-center sf:justify-center",
+                className: "sf:relative sf:widget-button-size sf:flex sf:items-center sf:justify-center",
                 children: [n && l.jsx("div", {
                     className: "sf:absolute sf:top-[2px] sf:right-[-2px] sf:w-4 sf:h-4 sf:bg-red-90 sf:rounded-full sf:border-2 sf:border-white sf:z-10"
                 }), l.jsx(Is, {
@@ -2208,6 +2208,10 @@ const Ds = () => {
                     if (spacingConfig.welcome?.desktop?.right) styles["--sf-widget-welcome-right-desktop"] = spacingConfig.welcome.desktop.right;
                     if (spacingConfig.chatbox?.marginVertical) styles["--sf-widget-chatbox-margin-vertical"] = spacingConfig.chatbox.marginVertical;
                     if (spacingConfig.chatbox?.marginOffset) styles["--sf-widget-chatbox-margin-offset"] = spacingConfig.chatbox.marginOffset;
+                    if (spacingConfig.button?.size) { styles["--sf-widget-button-size"] = spacingConfig.button.size; styles["--sf-widget-button-icon-size"] = `calc(${spacingConfig.button.size} * 0.5)`; }
+                    if (spacingConfig.welcome?.width) styles["--sf-widget-welcome-width"] = spacingConfig.welcome.width;
+                    if (spacingConfig.chatbox?.width) styles["--sf-widget-chatbox-width-desktop"] = spacingConfig.chatbox.width;
+                    if (spacingConfig.chatbox?.height) styles["--sf-widget-chatbox-height-desktop"] = spacingConfig.chatbox.height;
                 }
                 return Object.keys(styles).length > 0 ? styles : undefined;
             }, [n]);

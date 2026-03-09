@@ -2927,6 +2927,12 @@
   --sf-widget-chatbox-margin-vertical: calc(2 * var(--sf-hem));        /* 32px */
   --sf-widget-chatbox-margin-offset: 56px;
 
+  --sf-widget-button-size: 56px;
+  --sf-widget-button-icon-size: calc(var(--sf-widget-button-size) * 0.5);
+  --sf-widget-welcome-width: 260px;
+  --sf-widget-chatbox-width-desktop: 420px;
+  --sf-widget-chatbox-height-desktop: 680px;
+
   all: initial;
 }
 :is(:root, :host) * {
@@ -3273,5 +3279,22 @@
 
   .sf\:widget-chatbox-spacing {
     max-height: calc(100vh - var(--sf-widget-chatbox-margin-offset) - var(--sf-widget-chatbox-margin-vertical)) !important;
+  }
+}
+
+/* Widget Component Size Classes */
+.sf\:widget-button-size {
+  width: var(--sf-widget-button-size);
+  height: var(--sf-widget-button-size);
+}
+
+.sf\:widget-welcome-width {
+  width: var(--sf-widget-welcome-width);
+}
+
+@media (min-width: 640px) {
+  .sf\:widget-chatbox-size {
+    width: var(--sf-widget-chatbox-width-desktop) !important;
+    height: var(--sf-widget-chatbox-height-desktop) !important;
   }
 }
