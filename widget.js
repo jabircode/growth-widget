@@ -2212,9 +2212,10 @@ const Ds = () => {
                     if (spacingConfig.welcome?.width) styles["--sf-widget-welcome-width"] = spacingConfig.welcome.width;
                     if (spacingConfig.chatbox?.width) styles["--sf-widget-chatbox-width-desktop"] = spacingConfig.chatbox.width;
                     if (spacingConfig.chatbox?.height) styles["--sf-widget-chatbox-height-desktop"] = spacingConfig.chatbox.height;
+                    if (a && typeof window !== "undefined" && window.innerWidth < 640) styles["--sf-widget-container-bottom-mobile"] = "0px";
                 }
                 return Object.keys(styles).length > 0 ? styles : undefined;
-            }, [n]);
+            }, [n, a]);
         return r.useEffect(() => (a ? document.body.classList.add("sf:prevent-scroll") : document.body.classList.remove("sf:prevent-scroll"), () => {
             document.body.classList.remove("sf:prevent-scroll")
         }), [a]), l.jsxs("div", {
