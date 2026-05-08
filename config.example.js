@@ -43,8 +43,14 @@ window.SleekFlowWidgetSpacingConfig = {
     width: '260px',
   },
 
+  // ─── Breakpoint ──────────────────────────────────────────────────────────────
+  // Viewport width (px, number) at which the widget switches from mobile to
+  // desktop layout. Defaults to 640. Affects container/button/welcome/chatbox
+  // positioning and chatbox size.
+  breakpoint: 640,
+
   // ─── Chatbox ─────────────────────────────────────────────────────────────────
-  // `width` / `height` apply on desktop only (≥640px).
+  // `width` / `height` apply on desktop only (≥ breakpoint).
   // On mobile the chatbox is always full-screen.
   chatbox: {
     marginVertical: '32px', // vertical breathing room for height calculation

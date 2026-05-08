@@ -2212,11 +2212,26 @@ const Ds = () => {
                     if (spacingConfig.welcome?.width) styles["--sf-widget-welcome-width"] = spacingConfig.welcome.width;
                     if (spacingConfig.chatbox?.width) styles["--sf-widget-chatbox-width-desktop"] = spacingConfig.chatbox.width;
                     if (spacingConfig.chatbox?.height) styles["--sf-widget-chatbox-height-desktop"] = spacingConfig.chatbox.height;
-                    if (a && typeof window !== "undefined" && window.innerWidth < 640) styles["--sf-widget-container-bottom-mobile"] = "0px";
+                    if (a && typeof window !== "undefined" && window.innerWidth < (spacingConfig.breakpoint ?? 640)) styles["--sf-widget-container-bottom-mobile"] = "0px";
                 }
                 return Object.keys(styles).length > 0 ? styles : undefined;
             }, [n, a]);
-        return r.useEffect(() => (a ? document.body.classList.add("sf:prevent-scroll") : document.body.classList.remove("sf:prevent-scroll"), () => {
+        return r.useEffect(() => {
+            const spacingConfig = typeof window !== "undefined" && window.SleekFlowWidgetSpacingConfig;
+            const bp = spacingConfig?.breakpoint;
+            if (!bp || bp === 640) return;
+            const styleId = "sf-widget-breakpoint-override";
+            let el = document.getElementById(styleId);
+            if (!el) { el = document.createElement("style"); el.id = styleId; document.head.appendChild(el); }
+            const parts = [];
+            if (bp > 640) {
+                parts.push(`@media (min-width: 640px) and (max-width: ${bp - 1}px) { .sf\\:widget-container-spacing { bottom: var(--sf-widget-container-bottom-mobile); right: var(--sf-widget-container-right-mobile) } .sf\\:widget-button-spacing { bottom: var(--sf-widget-button-bottom-mobile); right: var(--sf-widget-button-right-mobile) } .sf\\:widget-welcome-spacing { bottom: var(--sf-widget-welcome-bottom-mobile); right: var(--sf-widget-welcome-right-mobile) } .sf\\:widget-chatbox-spacing { max-height: initial !important } .sf\\:widget-chatbox-size { width: initial !important; height: initial !important } }`);
+            }
+            parts.push(`@media (min-width: ${bp}px) { .sf\\:widget-container-spacing { bottom: var(--sf-widget-container-bottom-desktop); right: var(--sf-widget-container-right-desktop) } .sf\\:widget-button-spacing { bottom: var(--sf-widget-button-bottom-desktop); right: var(--sf-widget-button-right-desktop) } .sf\\:widget-welcome-spacing { bottom: var(--sf-widget-welcome-bottom-desktop); right: var(--sf-widget-welcome-right-desktop) } .sf\\:widget-chatbox-spacing { max-height: calc(100vh - var(--sf-widget-chatbox-margin-offset) - var(--sf-widget-chatbox-margin-vertical)) !important } .sf\\:widget-chatbox-size { width: var(--sf-widget-chatbox-width-desktop) !important; height: var(--sf-widget-chatbox-height-desktop) !important } }`);
+            el.textContent = parts.join(" ");
+            return () => { el.remove(); };
+        }, []),
+        r.useEffect(() => (a ? document.body.classList.add("sf:prevent-scroll") : document.body.classList.remove("sf:prevent-scroll"), () => {
             document.body.classList.remove("sf:prevent-scroll")
         }), [a]), l.jsxs("div", {
             id: "sleekflow-widget-app",
